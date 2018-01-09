@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BYTagView_Example' do
+  pod 'BYTagView', :path => '../'
+
+  target 'BYTagView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
