@@ -1,0 +1,6 @@
+framework module BYTagView {
+  umbrella header "BYTagView-umbrella.h"
+
+  export *
+  module * { export * }
+}
