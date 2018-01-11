@@ -8,7 +8,7 @@
 
 #import "BYViewController.h"
 #import <BYTagView/BYTagsView.h>
-
+#import <BYTagView/BYDialogBox.h>
 @interface BYViewController ()
 @property (nonatomic,strong) BYTagsView *tagsView;
 
@@ -61,6 +61,15 @@
     _tagsView.tags = tags;
     _tagsView.isMultiSelectEnable = false;
     [self.view addSubview:_tagsView];
+    
+    BYDialogBox *dialogBox = [[BYDialogBox alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+    dialogBox.dialogLabel.text = @"课件下架后，将不能继续售卖";
+    dialogBox.themeColor = [UIColor blackColor];
+    dialogBox.jointPoint = CGPointMake(300, 300);
+    dialogBox.ratio = 5;
+    dialogBox.themeAlpha = 0.8;
+    dialogBox.orientation = BYDialogBoxOrientationDown;
+    [self.view addSubview:dialogBox];
 }
 
 - (void)didReceiveMemoryWarning
