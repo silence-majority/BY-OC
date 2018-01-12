@@ -9,6 +9,7 @@
 #import "BYViewController.h"
 #import <BYTagView/BYTagsView.h>
 #import <BYTagView/BYDialogBox.h>
+#import <BYTagView/BYEvaluateStar.h>
 @interface BYViewController ()
 @property (nonatomic,strong) BYTagsView *tagsView;
 
@@ -70,6 +71,13 @@
     dialogBox.themeAlpha = 0.8;
     dialogBox.orientation = BYDialogBoxOrientationDown;
     [self.view addSubview:dialogBox];
+    
+    BYEvaluateStar *evaluateStar = [[BYEvaluateStar alloc] initWithCountOfStar:5 originScore:5 normalImage:[UIImage imageNamed:@"normalStar"] selectedImage:[UIImage imageNamed:@"selectedStar"]];
+    evaluateStar.frame = CGRectMake(100, 400, 240, 60);
+    evaluateStar.backgroundColor = [UIColor purpleColor];
+    evaluateStar.starSize = CGSizeMake(40, 40);
+    evaluateStar.interSpace = 10;
+    [self.view addSubview:evaluateStar];
 }
 
 - (void)didReceiveMemoryWarning
