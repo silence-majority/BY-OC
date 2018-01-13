@@ -1,5 +1,7 @@
 PODS:
-  - BYTagView (0.1.0)
+  - BYTagView (0.1.0):
+    - Masonry
+  - Masonry (1.1.0)
 
 DEPENDENCIES:
   - BYTagView (from `../`)
@@ -9,7 +11,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  BYTagView: 79e6dd9c08b668d985603c7608ff668fea913ada
+  BYTagView: 2a66f01cf57ff58340e8a06685cff1e7f65efda9
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
 PODFILE CHECKSUM: 452164c438de23dfc7ed7ee5df18b53ec999582b
 
