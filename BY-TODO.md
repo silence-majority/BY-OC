@@ -1,6 +1,7 @@
 ## BY-TODO
 ### BYTagView
 * tag与tag之间的间隔不固定
+* tagModel 改成 tagModel协议
 
 ### BYLimitTextView
 * 改成非masonry依赖 
