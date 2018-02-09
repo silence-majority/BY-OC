@@ -72,12 +72,43 @@
     dialogBox.orientation = BYDialogBoxOrientationDown;
     [self.view addSubview:dialogBox];
     
-    BYEvaluateStar *evaluateStar = [[BYEvaluateStar alloc] initWithCountOfStar:5 originScore:5 normalImage:[UIImage imageNamed:@"normalStar"] selectedImage:[UIImage imageNamed:@"selectedStar"]];
+//    BYEvaluateStar *evaluateStar = [[BYEvaluateStar alloc] initWithCountOfStar:5 originScore:5 normalImage:[UIImage imageNamed:@"normalStar"] selectedImage:[UIImage imageNamed:@"selectedStar"]];
+    BYEvaluateStar *evaluateStar = [[BYEvaluateStar alloc] initWithCountOfStar:5 originScore:2.45 maskImage:[UIImage imageNamed:@"selectedStar"] normalColor:[UIColor lightGrayColor] focusColor:[UIColor redColor]];
     evaluateStar.frame = CGRectMake(100, 400, 240, 60);
-    evaluateStar.backgroundColor = [UIColor purpleColor];
+    evaluateStar.backgroundColor = [UIColor whiteColor];
     evaluateStar.starSize = CGSizeMake(40, 40);
     evaluateStar.interSpace = 10;
     [self.view addSubview:evaluateStar];
+    
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(100, 600, 100, 100)];
+    contentView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    backView.backgroundColor = [UIColor lightGrayColor];
+    [contentView addSubview:backView];
+    [self.view addSubview:contentView];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 17, 40)];
+    view.backgroundColor = [UIColor cyanColor];
+    [backView addSubview:view];
+    
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    imageview.image = [UIImage imageNamed:@"selectedStar"];
+    
+//    [contentView addSubview:imageview];
+    
+    CALayer *maskLayer = [CALayer layer];
+    maskLayer.frame = imageview.bounds;
+    maskLayer.contents = (__bridge id)imageview.image.CGImage;
+    backView.layer.mask = maskLayer;
+    
+    BYStarButton *btn = [[BYStarButton alloc] init];
+    btn.frame = CGRectMake(0, 400, 50, 50);
+//    btn.score = 0.7;
+    btn.focusColor = [UIColor purpleColor];
+    btn.normalColor = [UIColor lightGrayColor];
+    btn.maskImage =  [UIImage imageNamed:@"selectedStar"];
+    [self.view addSubview:btn];
 }
 
 - (void)didReceiveMemoryWarning

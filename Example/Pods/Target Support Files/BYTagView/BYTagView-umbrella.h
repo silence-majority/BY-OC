@@ -14,6 +14,7 @@
 #import "BYDashBoarderView.h"
 #import "BYDialogBox.h"
 #import "BYEvaluateStar.h"
+#import "BYStarButton.h"
 #import "BYCollectionViewFlowLayout.h"
 #import "BYTagCollectionViewCell.h"
 #import "BYTagModel.h"
