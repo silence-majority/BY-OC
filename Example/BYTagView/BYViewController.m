@@ -58,7 +58,13 @@
     NSArray *tags = @[modelA,modelB,modelC,modelD,modelE,modelF,modelG];
 //    NSArray *tags = @[modelA,modelA,modelA,modelA,modelA,modelA,modelA];
     CGFloat contentViewHeigth = [BYTagsView getHeightWithTags:tags layout:[BYCollectionViewFlowLayout new] width:[UIScreen mainScreen].bounds.size.width];
-    _tagsView = [[BYTagsView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, contentViewHeigth)];
+
+    BYCollectionViewFlowLayout *layout = [[BYCollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumLineSpacing = 10.0f;
+    layout.minimumInteritemSpacing = 10.0f;
+    layout.sectionInset = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
+    _tagsView = [[BYTagsView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, contentViewHeigth) collectionViewLayout: layout];
     _tagsView.tags = tags;
     _tagsView.isMultiSelectEnable = false;
     [self.view addSubview:_tagsView];
@@ -79,36 +85,6 @@
     evaluateStar.starSize = CGSizeMake(40, 40);
     evaluateStar.interSpace = 10;
     [self.view addSubview:evaluateStar];
-    
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(100, 600, 100, 100)];
-    contentView.backgroundColor = [UIColor whiteColor];
-    
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    backView.backgroundColor = [UIColor lightGrayColor];
-    [contentView addSubview:backView];
-    [self.view addSubview:contentView];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 17, 40)];
-    view.backgroundColor = [UIColor cyanColor];
-    [backView addSubview:view];
-    
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    imageview.image = [UIImage imageNamed:@"selectedStar"];
-    
-//    [contentView addSubview:imageview];
-    
-    CALayer *maskLayer = [CALayer layer];
-    maskLayer.frame = imageview.bounds;
-    maskLayer.contents = (__bridge id)imageview.image.CGImage;
-    backView.layer.mask = maskLayer;
-    
-    BYStarButton *btn = [[BYStarButton alloc] init];
-    btn.frame = CGRectMake(0, 400, 50, 50);
-//    btn.score = 0.7;
-    btn.focusColor = [UIColor purpleColor];
-    btn.normalColor = [UIColor lightGrayColor];
-    btn.maskImage =  [UIImage imageNamed:@"selectedStar"];
-    [self.view addSubview:btn];
 }
 
 - (void)didReceiveMemoryWarning
