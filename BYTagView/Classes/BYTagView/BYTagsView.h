@@ -24,4 +24,6 @@ typedef void (^SelectTagFinished)(NSArray *selectedTagsArray);
 
 + (CGFloat)getHeightWithTags:(NSArray<BYTagModel *> *)tags layout:(BYCollectionViewFlowLayout *)layout width:(CGFloat)width;
 
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(BYCollectionViewFlowLayout *)layout;
+
 @end

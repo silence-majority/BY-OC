@@ -13,16 +13,10 @@
 
 @implementation BYTagsView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(BYCollectionViewFlowLayout *)layout{
     if (self = [super initWithFrame:frame]){
-        _layout = [[BYCollectionViewFlowLayout alloc] init];
-        _layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _layout.minimumLineSpacing = 10.0f;
-        _layout.minimumInteritemSpacing = 10.0f;
-        _layout.sectionInset = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
-        
+        _layout = layout;
         _selectedTags = [[NSMutableArray alloc] init];
-        
         [self addSubview:self.collectionView];
     }
     return self;
@@ -34,6 +28,7 @@
 
 - (UICollectionView *)collectionView{
     if (!_collectionView){
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_layout];
         collectionView.scrollEnabled = false;
         collectionView.backgroundColor = [UIColor cyanColor];
