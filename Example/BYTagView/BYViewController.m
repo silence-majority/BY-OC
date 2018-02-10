@@ -51,12 +51,17 @@
     modelF.isSeleted = false;
     
     BYTagModel *modelG = [[BYTagModel alloc] init];
-    modelG.tagTitle = @"第三代";
+    modelG.tagTitle = @"史的方式打发的辅导费";
     modelG.tagId = [NSNumber numberWithInteger:7];
     modelG.isSeleted = false;
     
-    NSArray *tags = @[modelA,modelB,modelC,modelD,modelE,modelF,modelG];
-//    NSArray *tags = @[modelA,modelA,modelA,modelA,modelA,modelA,modelA];
+    BYTagModel *modelH = [[BYTagModel alloc] init];
+    modelH.tagTitle = @"好的好的";
+    modelH.tagId = [NSNumber numberWithInteger:8];
+    modelH.isSeleted = false;
+    
+    NSArray *tags = @[modelA,modelB,modelC,modelD,modelE,modelF,modelG,modelH];
+//    NSArray *tags = @[modelA,modelA,modelA,modelA,modelA,modelA,modelA,modelA];
     CGFloat contentViewHeigth = [BYTagsView getHeightWithTags:tags layout:[BYCollectionViewFlowLayout new] width:[UIScreen mainScreen].bounds.size.width];
 
     BYCollectionViewFlowLayout *layout = [[BYCollectionViewFlowLayout alloc] init];

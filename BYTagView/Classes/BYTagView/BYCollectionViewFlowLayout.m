@@ -9,7 +9,7 @@
 
 @interface BYCollectionViewFlowLayout()
 @property (nonatomic,weak) id<UICollectionViewDelegateFlowLayout> delegate;
-@property (nonatomic,strong) NSMutableArray *layoutAttributes;
+@property (nonatomic,strong) NSMutableArray<NSMutableArray *> *layoutAttributes;
 @property (nonatomic,assign) CGFloat contentViewHeight;
 @end
 
@@ -26,25 +26,59 @@
     [_layoutAttributes removeAllObjects];
     _contentViewHeight = self.sectionInset.top+self.itemSize.height;
     CGFloat originX = self.sectionInset.left;
-    CGFloat originY = self.sectionInset.top;
+    [_layoutAttributes addObject:[NSMutableArray array]];
 #warning  only one section
     NSInteger itemCount = [self.collectionView numberOfItemsInSection:0];
     for(NSInteger index=0; index<itemCount; index++){
         NSIndexPath *indexpath = [NSIndexPath indexPathForItem:index inSection:0];
-        CGSize itemSize = [self itemSizeForIndexPath:indexpath];
-        if ((originX+itemSize.width+self.sectionInset.right) > self.collectionView.bounds.size.width){
+        [self itemSizeForIndexPath:indexpath];
+        if ((originX+self.itemSize.width+self.sectionInset.right) > self.collectionView.bounds.size.width){
             originX = self.sectionInset.left;
-            originY += (itemSize.height+self.minimumLineSpacing);
-            _contentViewHeight += self.itemSize.height+self.minimumLineSpacing; //self.itemSize.height固定self.itemSize.width不固定
+            [_layoutAttributes addObject:[NSMutableArray array]];
         }
         UICollectionViewLayoutAttributes *attribute = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexpath];
-        attribute.frame = CGRectMake(originX, originY, itemSize.width, itemSize.height);
-        [_layoutAttributes addObject:attribute];
-        
-        originX += itemSize.width+self.minimumInteritemSpacing;
+        attribute.frame = CGRectMake(0, 0, self.itemSize.width, self.itemSize.height);
+        [[_layoutAttributes lastObject] addObject:attribute];
+        originX += self.itemSize.width+self.minimumInteritemSpacing;
     }
-    _contentViewHeight += self.sectionInset.bottom;
+    [self layoutWithStrategy:BYFlowLayoutStrategyHalfAutoGapWithMargin layoutAttributes:_layoutAttributes];
+    _contentViewHeight = _layoutAttributes.count*(self.minimumLineSpacing+self.itemSize.height)-self.minimumLineSpacing + self.sectionInset.top+self.sectionInset.bottom;
 }
+
+- (void)layoutWithStrategy:(BYFlowLayoutStrategy)strategy layoutAttributes:(NSMutableArray<NSMutableArray *> *)layoutAttributes{
+    NSInteger row = 0;
+    for (NSMutableArray *oneRowAttributes in layoutAttributes){
+        CGFloat tagsWidth = 0;
+        for (UICollectionViewLayoutAttributes *attribute in oneRowAttributes){
+            tagsWidth += attribute.frame.size.width;
+        }
+        CGFloat averageGapWidth = 0;
+        CGPoint origin = CGPointZero;
+        switch (strategy) {
+            case BYFlowLayoutStrategyConstantGap:
+                averageGapWidth = self.minimumInteritemSpacing;
+                origin = CGPointMake(self.sectionInset.left, 0);
+                break;
+            case BYFlowLayoutStrategyFullAutoGap:
+                averageGapWidth = (self.collectionView.bounds.size.width-tagsWidth)/(oneRowAttributes.count-1+2);
+                origin = CGPointMake(averageGapWidth, 0);
+                break;
+            case BYFlowLayoutStrategyHalfAutoGapWithMargin:
+                averageGapWidth = (self.collectionView.bounds.size.width-tagsWidth-self.sectionInset.left-self.sectionInset.right)/(oneRowAttributes.count-1);
+                if (averageGapWidth > 40){
+                    averageGapWidth = 20;
+                }
+                origin = CGPointMake(self.sectionInset.left, 0);
+                break;
+        }
+        for (UICollectionViewLayoutAttributes *attribute in oneRowAttributes){
+            attribute.frame = CGRectMake(origin.x, self.sectionInset.top+(row*(self.itemSize.height+self.minimumLineSpacing)), attribute.frame.size.width, attribute.frame.size.height);
+            origin = CGPointMake(origin.x+attribute.frame.size.width+averageGapWidth, 0);
+        }
+        row++;
+    }
+}
+
 /** 父类方法 */
 - (CGSize)collectionViewContentSize{
     return CGSizeMake(self.collectionView.frame.size.width,_contentViewHeight);
@@ -61,7 +95,13 @@
 
 /** 父类方法 */
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
-    return _layoutAttributes;
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSMutableArray *oneRowAttributes in _layoutAttributes){
+        for (UICollectionViewLayoutAttributes *attribute in oneRowAttributes){
+            [array addObject:attribute];
+        }
+    }
+    return array;
 }
 
 /** 代理方法，传入indexPath，返回item的Size */

@@ -28,7 +28,6 @@
 
 - (UICollectionView *)collectionView{
     if (!_collectionView){
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_layout];
         collectionView.scrollEnabled = false;
         collectionView.backgroundColor = [UIColor cyanColor];
