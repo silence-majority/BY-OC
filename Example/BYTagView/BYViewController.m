@@ -21,54 +21,61 @@
 {
     [super viewDidLoad];
     BYTagModel *modelA = [[BYTagModel alloc] init];
-    modelA.tagTitle = @"这是一个怎样的世界";
-    modelA.tagId = [NSNumber numberWithInteger:1];
-    modelA.isSeleted = false;
+    modelA.BYTagTitle = @"这是一个怎样的世界";
+    modelA.BYTagId = [NSNumber numberWithInteger:1];
+    modelA.BYIsSeleted = false;
     
     BYTagModel *modelB = [[BYTagModel alloc] init];
-    modelB.tagTitle = @"舒徐";
-    modelB.tagId = [NSNumber numberWithInteger:2];
-    modelB.isSeleted = false;
+    modelB.BYTagTitle = @"舒徐水电费";
+    modelB.BYTagId = [NSNumber numberWithInteger:2];
+    modelB.BYIsSeleted = false;
     
     BYTagModel *modelC = [[BYTagModel alloc] init];
-    modelC.tagTitle = @"打字好难";
-    modelC.tagId = [NSNumber numberWithInteger:3];
-    modelC.isSeleted = false;
+    modelC.BYTagTitle = @"打字好难";
+    modelC.BYTagId = [NSNumber numberWithInteger:3];
+    modelC.BYIsSeleted = false;
     
     BYTagModel *modelD = [[BYTagModel alloc] init];
-    modelD.tagTitle = @"我是谁这是什么";
-    modelD.tagId = [NSNumber numberWithInteger:4];
-    modelD.isSeleted = false;
+    modelD.BYTagTitle = @"我是谁";
+    modelD.BYTagId = [NSNumber numberWithInteger:4];
+    modelD.BYIsSeleted = false;
     
     BYTagModel *modelE = [[BYTagModel alloc] init];
-    modelE.tagTitle = @"啊啊啊啊啊";
-    modelE.tagId = [NSNumber numberWithInteger:5];
-    modelE.isSeleted = false;
+    modelE.BYTagTitle = @"啊啊啊啊";
+    modelE.BYTagId = [NSNumber numberWithInteger:5];
+    modelE.BYIsSeleted = false;
     
     BYTagModel *modelF = [[BYTagModel alloc] init];
-    modelF.tagTitle = @"但是发生的";
-    modelF.tagId = [NSNumber numberWithInteger:6];
-    modelF.isSeleted = false;
+    modelF.BYTagTitle = @"但是发生";
+    modelF.BYTagId = [NSNumber numberWithInteger:6];
+    modelF.BYIsSeleted = false;
     
     BYTagModel *modelG = [[BYTagModel alloc] init];
-    modelG.tagTitle = @"史的方式打发的辅导费";
-    modelG.tagId = [NSNumber numberWithInteger:7];
-    modelG.isSeleted = false;
+    modelG.BYTagTitle = @"史的方式";
+    modelG.BYTagId = [NSNumber numberWithInteger:7];
+    modelG.BYIsSeleted = false;
     
     BYTagModel *modelH = [[BYTagModel alloc] init];
-    modelH.tagTitle = @"好的好的";
-    modelH.tagId = [NSNumber numberWithInteger:8];
-    modelH.isSeleted = false;
+    modelH.BYTagTitle = @"好的好的我们的";
+    modelH.BYTagId = [NSNumber numberWithInteger:8];
+    modelH.BYIsSeleted = false;
     
-    NSArray *tags = @[modelA,modelB,modelC,modelD,modelE,modelF,modelG,modelH];
-//    NSArray *tags = @[modelA,modelA,modelA,modelA,modelA,modelA,modelA,modelA];
-    CGFloat contentViewHeigth = [BYTagsView getHeightWithTags:tags layout:[BYCollectionViewFlowLayout new] width:[UIScreen mainScreen].bounds.size.width];
-
+    BYTagModel *modelI = [[BYTagModel alloc] init];
+    modelI.BYTagTitle = @"好的好的在";
+    modelI.BYTagId = [NSNumber numberWithInteger:9];
+    modelI.BYIsSeleted = false;
+    
+    NSArray *tags = @[modelA,modelB,modelC,modelD,modelE,modelF,modelG,modelH,modelI];
+//    NSArray *tags = @[modelH,modelH,modelH,modelH,modelH,modelH,modelH,modelH];
     BYCollectionViewFlowLayout *layout = [[BYCollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     layout.minimumLineSpacing = 10.0f;
     layout.minimumInteritemSpacing = 10.0f;
     layout.sectionInset = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
+    layout.tagFont = [UIFont systemFontOfSize:14];
+    layout.freeSize = CGSizeMake(25, 12);
+    layout.flowLayoutStrategy = BYFlowLayoutStrategyHalfAutoGapWithMargin;
+    CGFloat contentViewHeigth = [BYTagsView getHeightWithTags:tags layout:layout width:[UIScreen mainScreen].bounds.size.width];
     _tagsView = [[BYTagsView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, contentViewHeigth) collectionViewLayout: layout];
     _tagsView.tags = tags;
     _tagsView.isMultiSelectEnable = false;

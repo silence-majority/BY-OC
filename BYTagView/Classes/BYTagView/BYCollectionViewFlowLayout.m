@@ -24,7 +24,6 @@
 - (void)prepareLayout{
     [super prepareLayout];
     [_layoutAttributes removeAllObjects];
-    _contentViewHeight = self.sectionInset.top+self.itemSize.height;
     CGFloat originX = self.sectionInset.left;
     [_layoutAttributes addObject:[NSMutableArray array]];
 #warning  only one section
@@ -41,7 +40,7 @@
         [[_layoutAttributes lastObject] addObject:attribute];
         originX += self.itemSize.width+self.minimumInteritemSpacing;
     }
-    [self layoutWithStrategy:BYFlowLayoutStrategyHalfAutoGapWithMargin layoutAttributes:_layoutAttributes];
+    [self layoutWithStrategy:_flowLayoutStrategy layoutAttributes:_layoutAttributes];
     _contentViewHeight = _layoutAttributes.count*(self.minimumLineSpacing+self.itemSize.height)-self.minimumLineSpacing + self.sectionInset.top+self.sectionInset.bottom;
 }
 
@@ -65,7 +64,7 @@
                 break;
             case BYFlowLayoutStrategyHalfAutoGapWithMargin:
                 averageGapWidth = (self.collectionView.bounds.size.width-tagsWidth-self.sectionInset.left-self.sectionInset.right)/(oneRowAttributes.count-1);
-                if (averageGapWidth > 40){
+                if (row == layoutAttributes.count-1 && averageGapWidth > 40){
                     averageGapWidth = 20;
                 }
                 origin = CGPointMake(self.sectionInset.left, 0);

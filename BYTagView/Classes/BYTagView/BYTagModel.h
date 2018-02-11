@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @interface BYTagModel : NSObject
-@property (nonatomic,strong) NSNumber *tagId;
-@property (nonatomic,copy) NSString *tagTitle;
-@property (nonatomic,assign) BOOL isSeleted;
+@property (nonatomic,strong) NSNumber *BYTagId;
+@property (nonatomic,copy) NSString *BYTagTitle;
+@property (nonatomic,assign) BOOL BYIsSeleted;
 @end

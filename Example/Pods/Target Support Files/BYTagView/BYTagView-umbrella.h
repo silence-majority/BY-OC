@@ -17,6 +17,7 @@
 #import "BYStarButton.h"
 #import "BYCollectionViewFlowLayout.h"
 #import "BYTagCollectionViewCell.h"
+#import "BYTagModel+BYTag.h"
 #import "BYTagModel.h"
 #import "BYTagsView.h"
 
